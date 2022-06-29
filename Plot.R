@@ -157,6 +157,27 @@ p2
 ggsave(p2, device = "svg", filename = "images/Figure03.svg", width = 18, height = 10)
 
 
+# BW
+p2 <- ggplot(data.plot2 , aes(y = RR, x = ssize, 
+                              group = interaction(groups, `Parameter difference`))) +
+  facet_grid(cols = vars(test), rows = vars(groups))+
+  geom_point(aes(shape = `Parameter difference`))+
+  # Define shapes
+  scale_shape_manual(values=c(0, 8, 10, 17))+
+  geom_line()+
+  geom_hline(yintercept=c(0.8), linetype="dotted", color = "black") +
+  scale_y_continuous(name="Rejection rates", 
+                     limits=c(0, 1), 
+                     breaks=seq(0,1,.2),
+                     labels = scales::percent) + 
+  scale_x_discrete(name = "Total sample size") + 
+  theme_bw(base_size = 14) +
+  theme(legend.position="bottom") 
+p2
+
+ggsave(p2, device = "svg", filename = "images/Figure03SW.svg", width = 18, height = 10)
+
+
 #  -----------------------------------------------------------------------------
 #  COMPLETE MODEL
 #  -----------------------------------------------------------------------------
@@ -239,16 +260,27 @@ p4 <- ggplot(data.plot4 , aes(y = RR, x = ssize,
   geom_point(aes(shape = `Structural model difference`, color = `Structural model difference`))+
   # Define shapes
   scale_shape_manual(values=c(0, 8, 10, 17))+
-  # Define colors
-  scale_color_manual(values=c(myOrange,myGreen,myBlue, myBlack))+
   geom_line()+
-  # geom_line(aes(linetype = `Structural model difference`)) +
-  # Define line-types
-  # https://stackoverflow.com/questions/52885265/change-line-width-in-ggplot-not-size
-  # Define different linetypes
-  # The first numeral is units of dash length, 
-  # the second units in the gap in hexadecimal. 
-  # scale_linetype_manual(values=c("81", "82","83","84"))+
+  geom_hline(yintercept=c(0.8), linetype="dotted", color = "black") +
+  scale_y_continuous(name="Rejection rates", 
+                     limits=c(0, 1), 
+                     breaks=seq(0,1,.2),
+                     labels = scales::percent) + 
+  scale_x_discrete(name = "Total sample size") + 
+  theme_bw(base_size = 18) +
+  theme(legend.position="bottom")
+p4
+
+# Figure 6 BW
+ggsave(p4, device = "svg", filename = "images/Figure06.svg", width = 18, height = 10)
+
+p4 <- ggplot(data.plot4 , aes(y = RR, x = ssize, 
+                              group = interaction(groups, `Structural model difference`))) +
+  facet_grid(cols = vars(test), rows = vars(groups))+
+  geom_point(aes(shape = `Structural model difference`))+
+  # Define shapes
+  scale_shape_manual(values=c(0, 8, 10, 17))+
+  geom_line()+
   geom_hline(yintercept=c(0.8), linetype="dotted", color = "black") +
   scale_y_continuous(name="Rejection rates", 
                      limits=c(0, 1), 
@@ -260,9 +292,7 @@ p4 <- ggplot(data.plot4 , aes(y = RR, x = ssize,
 p4
 
 # Figure 6
-ggsave(p4, device = "svg", filename = "images/Figure06.svg", width = 18, height = 10)
-
-
+ggsave(p4, device = "svg", filename = "images/Figure06BW.svg", width = 18, height = 10)
 
 #  -----------------------------------------------------------------------------
 #  MULTIPLE COMPARISON ISSUE
@@ -364,6 +394,27 @@ p6
 
 # Figure 8
 ggsave(p6, device = "svg", filename = "images/Figure08.svg", width = 12, height = 8)
+
+
+# BW
+p6 <- ggplot(data.plot6 , aes(y = `5%_perCentage`, x = ssize, 
+                              group = interaction(`Data distribution`, `Sample size distribution`),
+                              linetype = `Data distribution`)) +
+  facet_grid(cols = vars(test), rows = vars(differences))+
+  geom_point(aes(shape = `Sample size distribution`))+
+  geom_line()+
+  geom_hline(yintercept=c(0.8), linetype="dotted", color = "black") +
+  scale_y_continuous(name="Rejection rates", 
+                     limits=c(0, 1), 
+                     breaks=seq(0,1,.1),
+                     labels = scales::percent) + 
+  scale_x_discrete(name = "Total sample size") + 
+  theme_bw(base_size = 18) +
+  theme(legend.position="bottom")
+p6
+
+# Figure 8
+ggsave(p6, device = "svg", filename = "images/Figure08BW.svg", width = 12, height = 8)
 
 
 #  -----------------------------------------------------------------------------
